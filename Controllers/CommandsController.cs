@@ -11,7 +11,15 @@ namespace Commander.Controllers
     [ApiController]
     public class CommandsController : ControllerBase // inherits from Controller Base class (built in)
     {
-        private readonly MockCommanderRepo _repository = new MockCommanderRepo();
+        private readonly ICommanderRepo _repository;
+
+        public CommandsController(ICommanderRepo repository)
+        {
+            _repository = repository;
+        }
+
+        // we swap out the instance by injecting dependency in the constructor: 
+        // private readonly MockCommanderRepo _repository = new MockCommanderRepo();
         // GET api/commands
         [HttpGet]
         public ActionResult<IEnumerable<Command>> GetAllCommands()
